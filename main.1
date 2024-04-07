@@ -1,0 +1,62 @@
+#include <iostream>
+#include <cstring>
+
+class String {
+private:
+    static int count;
+    char *str;
+    int size;
+public:
+    String() : String(80) {}
+
+    String(int len) : size(len) {
+        str = new char[size + 1];
+        count++;
+    }
+
+    String(const char *s) {
+        size = strlen(s);
+        str = new char[size + 1];
+        strcpy(str, s);
+        count++;
+    }
+
+    ~String() {
+        delete [] str;
+        count--;
+    }
+
+    void input() {
+        std::cout << "Введіть рядок: ";
+        std::cin.getline(str, size + 1);
+    }
+
+    void display() {
+        std::cout << "Рядок: " << str << std::endl;
+    }
+
+    static int getCount() {
+        return count;
+    }
+};
+
+int String::count = 0;
+
+int main() {
+    String str1;
+    str1.display();
+
+    String str2(100);
+    str2.display();
+
+    String str3("Hello, world!");
+    str3.display();
+
+    String str4;
+    str4.input();
+    str4.display();
+
+    std::cout << "Кількість створених об'єктів рядків: " << String::getCount() << std::endl;
+
+    return 0;
+}
